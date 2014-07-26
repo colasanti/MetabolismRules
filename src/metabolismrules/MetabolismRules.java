@@ -28,6 +28,8 @@ public class MetabolismRules {
             BufferedReader reader = new BufferedReader(fileReader);
 
             String line;
+            int correct =0;
+            int incorrect = 0;
             while ((line = reader.readLine()) != null) {
                 String delims = "\t";
                 String[] tokens = line.split(delims);
@@ -85,10 +87,17 @@ public class MetabolismRules {
                         fCount += testMembership(attribute,f);
                     }
                     String predict = prediction(tcaCount,mkCount,qCount,fCount);
+                    if(classType.equals(predict)==true){
+                        correct++;
+                    }else{
+                        incorrect++;
+                    }
                     System.out.println(classType+" "+predict+" "+classType.equals(predict));
                     
                 }
+                
             }
+            System.out.println(correct+" "+incorrect+" "+(correct/(correct+incorrect*1.0)));
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Bugger");
